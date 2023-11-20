@@ -1,0 +1,154 @@
+{% load static %}
+{% for task in tasks %}
+<div class="list-group w-100 list task naman{{task.id}} {%if not request.user.is_staff %}worker{% else %}staff{% endif %} js-selector">
+  <!-- <a
+    href="{% if request.user.is_staff %}{% if task.approved == False and task.completed is not null%}{% url 'taskApprove' task.id %}{% else %}#{% endif %}{% else %}{% if task.completed is null%}{% url 'taskImage' task.id %}{% else %}#{% endif %}{% endif %}"
+    class="bg-box list-group-item list-group-item-action"
+    aria-current="true"
+  > -->
+  <div
+
+    class="bg-box list-group-item list-group-item-action"
+    aria-current="true"
+  >
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="font-weight-boldee w-2 mb-0"><strong>{{ task.name }}</strong></h5>
+      <small>{{task.created|timesince}} ago</small>
+    </div>
+    <div class="d-flex flex-horizontal ml-0 mb-0 justify-content-end">
+      <p class="mb-0 ">{{ task.location }}</p>
+      <object
+        class="logo"
+        data="{% static 'Images/location1.svg' %}"
+        width="25"
+        height="20"
+      ></object>
+      <br>
+      <p class="mb-0 ">{{ task.coins }}</p>
+      <object
+        class="logo"
+        data="{% static 'Images/coin2.svg' %}"
+        width="25"
+        height="20"
+      ></object>
+    </div>
+    {% if request.user.is_staff %}
+    <h5 class="mb-2 font-weight-bold">{{ task.category }}</h5>
+    {% endif %}
+    {% if task.completed is None %}
+    <h6 class="completed mb-0 ml-5 text-danger">Completed: No </h6>
+    {% else %}
+    <h6 class="completed mb-0 ml-5 text-success">Completed: Yes </h6>
+    {% endif %}
+    {% if task.completed is not none %}
+    {% if task.approved is False %}
+    <h6 class="leftbox-right font-weight-bolder w-2 mb-0 text-danger">Status: Not Approved</h6>
+    {% else %}
+    <h6 class="leftbox-right mb-0 text-success">Status: Approved</h6>
+    {% endif %}
+    {% endif %}
+    {% if request.user.is_staff %}
+    Assigned to- @{{ task.assigned.username}} <br>
+    {% else %}
+    <h5 class="mb-2 font-weight-bold">{{ task.category }}</h5>
+    {% endif %}
+
+  </div>
+</div>
+
+<section class=" modall hidden upload-image naman{{task.id}} {%if not request.user.is_staff and not task.completed %}worker{% endif %}">
+  <div class="container">
+    <div class="task-form">
+      <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1:8000/task-image/{{task.id}}/">
+        {% csrf_token %}
+        <div class="grid-container">
+          <label class="form-control-label">Name</label>
+          <p class="text-field image-name">{{task.name}}</p>
+          <object
+          class="logo"
+          data="{% static 'Images/location12copy.svg' %}"
+          width="25"
+          height="20"
+          ></object>
+          <label class="form-control-label">Location</label>
+          <p class="text-field image-location">{{task.location}}</p>
+          <object
+          class="logo"
+          data="{% static 'Images/location1copy.svg' %}"
+          width="25"
+          height="20"
+          ></object>
+          <label class="form-control-label">Category</label>
+          <p class="text-field image-name">{{task.category}}</p>
+          <object
+          class="logo"
+          data="{% static 'Images/location12copy.svg' %}"
+          width="25"
+          height="20"
+          ></object>
+          <label class="form-control-label">Coins</label>
+          <p class="text-field image-name">{{task.coins}}</p>
+          <object
+          class="logo"
+          data="{% static 'Images/coin2copy.svg' %}"
+          width="25"
+          height="20"
+          ></object>
+          <label class="form-control-label">Image</label>
+            <input type='file' name="image" class="btn">
+            <object
+          class="logo"
+          data="{% static 'Images/location12copy.svg' %}"
+          width="25"
+          height="20"
+          ></object>
+        </div>
+        <div class="col-lg-12 loginbttm">
+          <div class="col-lg-6 login-btm login-button">
+            <button type="submit" class="btn btn-outline-primary">
+              Update</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</section>
+<section class=" modall hidden approve-image naman{{task.id}} {%if request.user.is_staff and not task.approved %}staff{% endif %}">
+  <div class="container">
+      <div class="task-form">
+          <form method="POST">
+              {% csrf_token %}
+              <div class="form-group d-flex align-items-center justify-content-center">
+                  <img class="image-main" src="http://127.0.0.1:8000/media/{{task.image}}" alt="Task not yet completed" height="200">
+              </div>
+              <div class="form-group">
+                  <div class="form-check d-flex align-items-center justify-content-center">
+                      {% if task.approved == True %}
+                      <input class="form-check-input" type="checkbox" value=True name="approved" id="flexCheckDefault" checked>
+                      {% else %}
+                      <input class="form-check-input" type="checkbox" value=True name="approved" id="flexCheckDefault">
+                      {% endif %}
+                      <!-- {{ form.as_p }} -->
+                      <label class="form-check-label label" for="flexCheckDefault">
+                        Approve
+                      </label>
+                    </div>
+                    <!-- <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Checked checkbox
+                      </label>
+                    </div> -->
+              </div>
+              <div class="col-lg-12 loginbttm d-flex align-items-center justify-content-center">
+                  <div class="col-lg-6 login-btm login-button">
+                      <button type="submit" class="btn btn-outline-primary">
+                          Approve</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</section>
+{% endfor %}
+<div class="overlay hidden"></div>

@@ -6,6 +6,7 @@ body {
    background-size: cover;
    padding-top: 75px;
    background-attachment: fixed;
+   color: #1864ab;
 }
 .js-selector:hover{
   transform: translate(30px,0);
@@ -20,7 +21,7 @@ body {
   transition: 0.5s ease;
 }
 .bg-box {
-  background-image: linear-gradient(to top right, #c5e0e0, #edf4f1);
+  background-image: linear-gradient(to right, #a5d8ff, #e7f5ff);
 }
 
 .leftbox-right{
@@ -33,16 +34,12 @@ font-weight: bolder;
   float: right;
 }
 
-.logo1 {
-  background-image: linear-gradient(to top right, #00172d, #0e9898);
-}
-
 .task {
   margin-bottom: 10px;
 }
 
 .bg-nav {
-  background-image: linear-gradient(to top right, #00172d, #00264d);
+  background-image: linear-gradient(to top, #1864ab18 , #00172d);
 }
 
 .kush {

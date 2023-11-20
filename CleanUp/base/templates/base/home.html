@@ -1,8 +1,8 @@
 {% extends "main.html" %} {% load static %} {% block head %}
 <!-- <link rel="stylesheet" href="/clean-up/static/styles/home.css"> -->
 <link rel="stylesheet" href="{% static 'styles/home.css' %}" />
-<link rel="stylesheet" href="{% static 'styles/image.css' %}">
-<link rel="stylesheet" href="{% static 'styles/approve.css' %}">
+<link rel="stylesheet" href="{% static 'styles/image.css' %}" />
+<link rel="stylesheet" href="{% static 'styles/approve.css' %}" />
 
 <title>Dashboard</title>
 {% endblock %} {% block content %}
@@ -19,7 +19,10 @@
       {% include "base/Category_component.html" %}
       <br />
       {% if request.user.is_staff %}
-      <a href="{% url 'taskForm' %}"><button type="button" class="btn btn-outline-primary text-white">New task</button>
+      <a href="{% url 'taskForm' %}"
+        ><button type="button" class="btn btn-outline-primary text-white">
+          New task
+        </button>
       </a>
       {% endif %}
     </nav>
@@ -31,5 +34,4 @@
 </div>
 <script src="{%static 'js/script.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-<!-- {% include 'base/script.js.html' %} -->
 {% endblock %}

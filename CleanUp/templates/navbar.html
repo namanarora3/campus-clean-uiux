@@ -36,9 +36,11 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Payments</a>
           </li>
+          {% if not request.user.is_staff %}
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Coins {{request.user.coins.first.coins}}</a>
           </li>
+          {% endif %}
         </ul>
         <form class="d-flex" role="search">
           <div class="dropdown">
@@ -52,7 +54,10 @@
             </button>
             <ul class="dropdown-menu">
               <!-- <li><a class="dropdown-item" href="#">My Profile</a></li> -->
+              {% if not request.user.is_staff %}
+
               <li class="dropdown-item">Coins: {{request.user.coins.first.coins}}</li>
+              {% endif %}
               <li><a class="dropdown-item" href="{% url 'logoutPage' %}">Logout</a></li>
             </ul>
           </div>

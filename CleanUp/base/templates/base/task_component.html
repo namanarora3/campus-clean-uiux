@@ -57,9 +57,9 @@
 </div>
 
 <section class=" modall hidden upload-image naman{{task.id}} {%if not request.user.is_staff and not task.completed %}worker{% endif %}">
-  <div class="container">
+  <div class="container-img">
     <div class="task-form">
-      <form method="POST" enctype="multipart/form-data" action="h{% url 'taskImage' task.id %}">
+      <form method="POST" enctype="multipart/form-data" action="{% url 'taskImage' task.id %}">
         {% csrf_token %}
         <div class="grid-container">
           <label class="form-control-label">Name</label>
@@ -113,8 +113,8 @@
       </div>
   </div>
 </section>
-<section class=" modall hidden approve-image naman{{task.id}} {%if request.user.is_staff and not task.approved %}staff{% endif %}">
-  <div class="container">
+<section class=" modall hidden approve-image naman{{task.id}} {%if request.user.is_staff and not task.approved and task.completed is not null %}staff{% endif %}">
+  <div class="container-app">
       <div class="task-form">
           <form method="POST" action="{% url 'taskApprove' task.id %}">
               {% csrf_token %}

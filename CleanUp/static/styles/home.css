@@ -20,6 +20,15 @@ body {
 .js-selector{
   transition: 0.5s ease;
 }
+.btnn:hover{
+  transform: translate(0, 10px);
+  transition: 0.1s ease;
+}
+
+
+.btnn{
+  transition: 0.2s ease;
+}
 .bg-box {
   background-image: linear-gradient(to right, #a5d8ff, #e7f5ff);
 }

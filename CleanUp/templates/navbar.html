@@ -2,7 +2,7 @@
 <section class="bg-nav fixed-top">
   <nav class="navbar navbar-expand-lg rounded ">
     <div class="container-fluid">
-      <nav class="navbar">
+      <nav class="navbar" style="margin-right: 20px;">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">
 
@@ -26,21 +26,32 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="#"
-              >Home</a
-            >
+            <a href="{% url 'home' %}">
+              <button type="button" class="btn btnn text-white">
+                Home
+              </button>
+            </a>
+          </li>
+          <!-- <li class="nav-item"> -->
+            <!-- <a class="nav-link text-white" href="#">Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Tasks</a>
-          </li>
+            <<a class="nav-link text-white" href="#">Payments</a>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Payments</a>
+            {% if not request.user.is_staff %}
+              <button type="button" class="btn btnn text-white">
+              Coins: <strong>{{request.user.coins.first.coins}}</strong>
+              </button>
+            {% else %}
+              <a href="{% url 'taskForm' %}">
+                <button type="button" class="btn btnn text-white">
+                  New task
+                </button>
+              </a>
+            {% endif %}
           </li>
-          {% if not request.user.is_staff %}
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Coins {{request.user.coins.first.coins}}</a>
-          </li>
-          {% endif %}
+
         </ul>
         <form class="d-flex" role="search">
           <div class="dropdown">
